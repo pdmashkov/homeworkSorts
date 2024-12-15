@@ -54,7 +54,7 @@ public class AviaSoulsTests {
     }
 
     @Test
-    public void shouldSortByComparator(){
+    public void shouldSortByComparatorLotsTickets() {
         Ticket ticket1 = new Ticket("Москва", "Варадеро", 250_000, 2, 22);
         Ticket ticket2 = new Ticket("Москва", "Варадеро", 13_000, 13, 22);
         Ticket ticket3 = new Ticket("Москва", "Варадеро", 64_340, 5, 22);
@@ -73,6 +73,54 @@ public class AviaSoulsTests {
 
         Ticket[] expected = {ticket2, ticket5, ticket4, ticket3, ticket1};
         Ticket[] actual = aviaSouls.searchAndSortBy("Москва", "Варадеро", ticketTimeComparator);
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSortByComparatorOneTickets() {
+        Ticket ticket1 = new Ticket("Москва", "Варадеро", 250_000, 2, 22);
+        Ticket ticket2 = new Ticket("Москва", "Варадеро", 13_000, 13, 22);
+        Ticket ticket3 = new Ticket("Москва", "Турция", 64_340, 5, 22);
+        Ticket ticket4 = new Ticket("Москва", "Варадеро", 28_000, 7, 22);
+        Ticket ticket5 = new Ticket("Москва", "Варадеро", 150_000, 12, 22);
+
+        AviaSouls aviaSouls = new AviaSouls();
+
+        aviaSouls.add(ticket1);
+        aviaSouls.add(ticket2);
+        aviaSouls.add(ticket3);
+        aviaSouls.add(ticket4);
+        aviaSouls.add(ticket5);
+
+        TicketTimeComparator ticketTimeComparator = new TicketTimeComparator();
+
+        Ticket[] expected = {ticket3};
+        Ticket[] actual = aviaSouls.searchAndSortBy("Москва", "Турция", ticketTimeComparator);
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSortByComparatorZeroTickets() {
+        Ticket ticket1 = new Ticket("Москва", "Варадеро", 250_000, 2, 22);
+        Ticket ticket2 = new Ticket("Москва", "Варадеро", 13_000, 13, 22);
+        Ticket ticket3 = new Ticket("Москва", "Турция", 64_340, 5, 22);
+        Ticket ticket4 = new Ticket("Москва", "Варадеро", 28_000, 7, 22);
+        Ticket ticket5 = new Ticket("Москва", "Варадеро", 150_000, 12, 22);
+
+        AviaSouls aviaSouls = new AviaSouls();
+
+        aviaSouls.add(ticket1);
+        aviaSouls.add(ticket2);
+        aviaSouls.add(ticket3);
+        aviaSouls.add(ticket4);
+        aviaSouls.add(ticket5);
+
+        TicketTimeComparator ticketTimeComparator = new TicketTimeComparator();
+
+        Ticket[] expected = {};
+        Ticket[] actual = aviaSouls.searchAndSortBy("Москва", "Анапа", ticketTimeComparator);
 
         Assertions.assertArrayEquals(expected, actual);
     }
